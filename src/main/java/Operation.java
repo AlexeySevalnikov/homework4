@@ -33,7 +33,7 @@ public class Operation {
     }
 
     String execute(String str) {
-        System.out.println("Введена непонятная операция, проверьте введенные данные в результате и введите корректную операцию");
+        str = "Введена непонятная операция, проверьте введенные данные в результате и введите корректную операцию";
         return str;
     }
 }
@@ -43,10 +43,14 @@ class Summ extends Operation {
     @Override
     String execute(String str) {
         String[] arrNumbers = str.split("[+]");
-        float number1 = Float.parseFloat(arrNumbers[0]);
-        float number2 = Float.parseFloat(arrNumbers[1]);
-        float result = number1 + number2;
-        str = Float.toString(result);
+        if (arrNumbers.length != 0) {
+            float number1 = Float.parseFloat(arrNumbers[0]);
+            float number2 = Float.parseFloat(arrNumbers[1]);
+            float result = number1 + number2;
+            str = Float.toString(result);
+        } else {
+            str = "Введена непонятная операция, проверьте введенные данные в результате и введите корректную операцию";
+        }
         return str;
     }
 }
@@ -57,28 +61,32 @@ class Minus extends Operation {
     String execute(String str) {
         boolean mark = true;
         String[] arrNumbers = str.split("[-]");
-        for (int i = 0; i < arrNumbers.length; i++) {
-            if (arrNumbers[i].equals("")) {
-                arrNumbers[i] = "-" + arrNumbers[i + 1];
-                if (arrNumbers[1].contains("-")){
-                    break;
-                }
-                if (arrNumbers.length > 2) {
-                    arrNumbers[i + 1] = arrNumbers[i + 2];
-                }
-                if (arrNumbers.length > 3) {
-                    while (mark) {
-                        arrNumbers[i + 2] = arrNumbers[i + 3];
-                        mark = false;
+        if (arrNumbers.length != 0) {
+            for (int i = 0; i < arrNumbers.length; i++) {
+                if (arrNumbers[i].equals("")) {
+                    arrNumbers[i] = "-" + arrNumbers[i + 1];
+                    if (arrNumbers[1].contains("-")) {
+                        break;
+                    }
+                    if (arrNumbers.length > 2) {
+                        arrNumbers[i + 1] = arrNumbers[i + 2];
+                    }
+                    if (arrNumbers.length > 3) {
+                        while (mark) {
+                            arrNumbers[i + 2] = arrNumbers[i + 3];
+                            mark = false;
+                        }
                     }
                 }
             }
-        }
-        if (arrNumbers.length >= 2) {
-            float number1 = Float.parseFloat(arrNumbers[0]);
-            float number2 = Float.parseFloat(arrNumbers[1]);
-            float result = number1 - number2;
-            str = Float.toString(result);
+            if (arrNumbers.length >= 2) {
+                float number1 = Float.parseFloat(arrNumbers[0]);
+                float number2 = Float.parseFloat(arrNumbers[1]);
+                float result = number1 - number2;
+                str = Float.toString(result);
+            }
+        } else {
+            str = "Введена непонятная операция, проверьте введенные данные в результате и введите корректную операцию";
         }
         return str;
     }
@@ -89,10 +97,14 @@ class Multiple extends Operation {
     @Override
     String execute(String str) {
         String[] arrNumbers = str.split("[*]");
-        float number1 = Float.parseFloat(arrNumbers[0]);
-        float number2 = Float.parseFloat(arrNumbers[1]);
-        float result = number1 * number2;
-        str = Float.toString(result);
+        if (arrNumbers.length != 0) {
+            float number1 = Float.parseFloat(arrNumbers[0]);
+            float number2 = Float.parseFloat(arrNumbers[1]);
+            float result = number1 * number2;
+            str = Float.toString(result);
+        } else {
+            str = "Введена непонятная операция, проверьте введенные данные в результате и введите корректную операцию";
+        }
         return str;
     }
 }
@@ -102,13 +114,17 @@ class Division extends Operation {
     @Override
     String execute(String str) {
         String[] arrNumbers = str.split("[/]");
-        float number1 = Float.parseFloat(arrNumbers[0]);
-        float number2 = Float.parseFloat(arrNumbers[1]);
-        if (number2 == 0) {
-            str = "На ноль делить нельзя";
+        if (arrNumbers.length != 0) {
+            float number1 = Float.parseFloat(arrNumbers[0]);
+            float number2 = Float.parseFloat(arrNumbers[1]);
+            if (number2 == 0) {
+                str = "На ноль делить нельзя";
+            } else {
+                float result = number1 / number2;
+                str = Float.toString(result);
+            }
         } else {
-            float result = number1 / number2;
-            str = Float.toString(result);
+            str = "Введена непонятная операция, проверьте введенные данные в результате и введите корректную операцию";
         }
         return str;
     }
